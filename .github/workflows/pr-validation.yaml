@@ -22,31 +22,9 @@ jobs:
 
       - name: Run HTMLHint
         run: npx htmlhint src/*.html
-        env:
-          HTMLHINT_CONFIG: |
-            {
-              "tagname-lowercase": true,
-              "attr-lowercase": true,
-              "alt-require": true,
-              "id-unique": true,
-              "tag-pair": true
-            }
 
       - name: Run Stylelint
-        run: npx stylelint "styles/*.css" --config-basedir .
-        env:
-          STYLELINT_CONFIG: |
-            {
-              "extends": "stylelint-config-standard",
-              "rules": {
-                "declaration-block-no-duplicate-properties": true,
-                "no-duplicate-selectors": true,
-                "property-case": "lower",
-                "value-keyword-case": "lower",
-                "selector-type-case": "lower",
-                "block-no-empty": true
-              }
-            }
+        run: npx stylelint "styles/*.css"
 
   build:
     runs-on: ubuntu-latest
