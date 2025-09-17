@@ -1,9 +1,9 @@
 {
   "name": "blogging-website",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Photography portfolio website for DevOps Fundamentals assignment",
   "scripts": {
+    "build": "parcel build src/index.html --dist-dir dist",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
