@@ -1,0 +1,66 @@
+name: PR Validation
+
+on:
+  pull_request:
+    branches:
+      - develop
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run HTMLHint
+        run: npx htmlhint src/*.html
+        env:
+          HTMLHINT_CONFIG: |
+            {
+              "tagname-lowercase": true,
+              "attr-lowercase": true,
+              "alt-require": true,
+              "id-unique": true,
+              "tag-pair": true
+            }
+
+      - name: Run Stylelint
+        run: npx stylelint "styles/*.css" --config-basedir .
+        env:
+          STYLELINT_CONFIG: |
+            {
+              "extends": "stylelint-config-standard",
+              "rules": {
+                "declaration-block-no-duplicate-properties": true,
+                "no-duplicate-selectors": true,
+                "property-case": "lower",
+                "value-keyword-case": "lower",
+                "selector-type-case": "lower",
+                "block-no-empty": true
+              }
+            }
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build with Parcel
+        run: npx parcel build src/*.html --dist-dir dist --no-source-maps
