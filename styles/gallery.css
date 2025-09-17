@@ -1,0 +1,17 @@
+body {
+    font-family: arial, sans-serif;
+    color: black;
+    margin: 0;
+    padding: 20px;
+  }
+  h1 {
+    text-align: center;
+  }
+  #gallery {
+    display: flex;
+    gap: 10px;
+  }
+  img {
+    max-width: 30%;
+    height: auto;
+  }
